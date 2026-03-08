@@ -1,0 +1,12 @@
+from pathlib import Path
+import os
+
+BASE_DIR = Path(__file__).resolve().parent
+OUTPUT_DIR = BASE_DIR / "output"
+LOG_DIR = BASE_DIR / "logs"
+RUN_LOG_FILE = LOG_DIR / "runs_history.json"
+
+JSONPLACEHOLDER_POSTS_URL = os.getenv(
+    "JSONPLACEHOLDER_POSTS_URL",
+    "https://jsonplaceholder.typeicode.com/posts"
+)
