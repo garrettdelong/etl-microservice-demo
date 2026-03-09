@@ -5,6 +5,8 @@ from datetime import datetime, UTC
 from config import JSONPLACEHOLDER_POSTS_URL, OUTPUT_DIR
 
 def ingest_posts():
+    started_at = datetime.now(UTC).isoformat()
+
     response = requests.get(JSONPLACEHOLDER_POSTS_URL, timeout=30)
     response.raise_for_status()
 
@@ -16,12 +18,16 @@ def ingest_posts():
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
 
+    completed_at = datetime.now(UTC).isoformat()
+
     return {
         "dataset": "posts",
         "source_url": JSONPLACEHOLDER_POSTS_URL,
         "status": "success",
         "record_count": len(data),
-        "file_path": str(output_file)
+        "file_path": str(output_file),
+        "started_at": started_at,
+        "completed_at": completed_at
     }
 
     
