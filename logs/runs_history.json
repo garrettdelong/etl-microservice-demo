@@ -1,0 +1,11 @@
+[
+  {
+    "dataset": "posts",
+    "source_url": "https://jsonplaceholder.typicode.com/posts",
+    "status": "success",
+    "record_count": 100,
+    "file_path": "C:\\coding projects\\etl-microservice-demo\\output\\posts_20260309T214339Z.json",
+    "started_at": "2026-03-09T21:43:39.613902+00:00",
+    "completed_at": "2026-03-09T21:43:39.709366+00:00"
+  }
+]
