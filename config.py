@@ -8,5 +8,5 @@ RUN_LOG_FILE = LOG_DIR / "runs_history.json"
 
 JSONPLACEHOLDER_POSTS_URL = os.getenv(
     "JSONPLACEHOLDER_POSTS_URL",
-    "https://jsonplaceholder.typeicode.com/posts"
+    "https://jsonplaceholder.typicode.com/posts"
 )
