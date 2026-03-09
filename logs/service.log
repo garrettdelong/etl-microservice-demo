@@ -1,0 +1,40 @@
+2026-03-08 21:41:56,561 INFO werkzeug [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.55:5000
+2026-03-08 21:41:56,561 INFO werkzeug [33mPress CTRL+C to quit[0m
+2026-03-08 21:41:56,562 INFO werkzeug  * Restarting with stat
+2026-03-08 21:41:56,941 WARNING werkzeug  * Debugger is active!
+2026-03-08 21:41:56,943 INFO werkzeug  * Debugger PIN: 134-621-167
+2026-03-08 21:42:08,058 INFO __main__ Starting ingest for posts
+2026-03-08 21:42:08,176 INFO __main__ Completed ingest for posts with 100 records written to C:\coding projects\etl-microservice-demo\output\posts_20260309T044208Z.json
+2026-03-08 21:42:08,177 INFO werkzeug 127.0.0.1 - - [08/Mar/2026 21:42:08] "POST /ingest/posts HTTP/1.1" 200 -
+2026-03-09 13:32:35,794 INFO werkzeug  * Detected change in 'C:\\coding projects\\etl-microservice-demo\\app.py', reloading
+2026-03-09 13:32:35,816 INFO werkzeug  * Restarting with stat
+2026-03-09 13:32:36,477 WARNING werkzeug  * Debugger is active!
+2026-03-09 13:32:36,479 INFO werkzeug  * Debugger PIN: 134-621-167
+2026-03-09 13:48:21,151 INFO werkzeug  * Detected change in 'C:\\coding projects\\etl-microservice-demo\\app.py', reloading
+2026-03-09 13:48:21,173 INFO werkzeug  * Restarting with stat
+2026-03-09 13:48:21,568 WARNING werkzeug  * Debugger is active!
+2026-03-09 13:48:21,570 INFO werkzeug  * Debugger PIN: 134-621-167
+2026-03-09 13:48:30,293 INFO werkzeug [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.55:5000
+2026-03-09 13:48:30,293 INFO werkzeug [33mPress CTRL+C to quit[0m
+2026-03-09 13:48:30,294 INFO werkzeug  * Restarting with stat
+2026-03-09 13:48:30,676 WARNING werkzeug  * Debugger is active!
+2026-03-09 13:48:30,678 INFO werkzeug  * Debugger PIN: 134-621-167
+2026-03-09 13:48:42,951 INFO __main__ Starting ingest for posts
+2026-03-09 13:48:43,072 INFO __main__ Completed ingest for posts with 100 records written to C:\coding projects\etl-microservice-demo\output\posts_20260309T204843Z.json
+2026-03-09 13:48:43,072 INFO werkzeug 127.0.0.1 - - [09/Mar/2026 13:48:43] "POST /ingest/posts HTTP/1.1" 200 -
+2026-03-09 13:48:51,941 INFO werkzeug 127.0.0.1 - - [09/Mar/2026 13:48:51] "GET /runs HTTP/1.1" 200 -
+2026-03-09 13:49:09,653 INFO werkzeug 127.0.0.1 - - [09/Mar/2026 13:49:09] "GET /runs/latest HTTP/1.1" 200 -
+2026-03-09 13:51:11,963 INFO werkzeug  * Detected change in 'C:\\coding projects\\etl-microservice-demo\\services\\ingest.py', reloading
+2026-03-09 13:51:11,985 INFO werkzeug  * Restarting with stat
+2026-03-09 13:51:12,379 WARNING werkzeug  * Debugger is active!
+2026-03-09 13:51:12,381 INFO werkzeug  * Debugger PIN: 134-621-167
+2026-03-09 13:51:32,421 INFO werkzeug  * Detected change in 'C:\\coding projects\\etl-microservice-demo\\app.py', reloading
+2026-03-09 13:51:32,442 INFO werkzeug  * Restarting with stat
+2026-03-09 13:51:32,840 WARNING werkzeug  * Debugger is active!
+2026-03-09 13:51:32,842 INFO werkzeug  * Debugger PIN: 134-621-167
