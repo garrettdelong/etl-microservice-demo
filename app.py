@@ -1,7 +1,7 @@
 from datetime import datetime, UTC
 from flask import Flask, jsonify
 from services.ingest import ingest_posts
-from services.run_log import append_run
+from services.run_log import append_run, read_run_history, get_latest_run
 from config import RUN_LOG_FILE
 import logging
 
@@ -55,6 +55,24 @@ def ingest_posts_route():
                 "timestamp_utc": datetime.now(UTC).isoformat()
             }
         ), 500
+
+@app.get("/runs")
+def get_runs():
+    runs = read_run_history(RUN_LOG_FILE)
+    return jsonify(runs), 200
+
+@app.get("/runs/latest")
+def latest_run():
+    latest = get_latest_run(RUN_LOG_FILE)
+
+    if latest is None:
+        return jsonify(
+            {
+                "message": "No runs found"
+            }
+        ), 404
+    
+    return jsonify(latest), 200
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
