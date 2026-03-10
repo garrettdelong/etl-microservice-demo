@@ -1,17 +1,18 @@
 from datetime import datetime, UTC
 from flask import Flask, jsonify
+import logging
+
 from services.ingest import ingest_posts
 from services.run_log import append_run, read_run_history, get_latest_run
-from config import RUN_LOG_FILE
-import logging
+from config import APP_HOST, APP_PORT, LOG_DIR, LOG_LEVEL, RUN_LOG_FILE
 
 app = Flask(__name__)
 
 logging.basicConfig(
-    level=logging.INFO,
+    level=LOG_LEVEL,
     format="%(asctime)s %(levelname)s %(name)s %(message)s",
     handlers=[
-        logging.FileHandler("logs/service.log"),
+        logging.FileHandler(LOG_DIR / "service.log"),
         logging.StreamHandler()
     ]
 )
@@ -75,4 +76,4 @@ def latest_run():
     return jsonify(latest), 200
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host=APP_HOST, port=APP_PORT, debug=True)

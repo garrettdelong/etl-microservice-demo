@@ -1,5 +1,19 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+load_dotenv()
+
+def get_env(name: str, default: str = "") -> str:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip()
+
+def get_env_int(name: str, default: int) -> int:
+    value = os.getenv(name)
+    if value is None or value.strip() == "":
+        return default
+    return int(value)
 
 BASE_DIR = Path(__file__).resolve().parent
 OUTPUT_DIR = BASE_DIR / "output"
@@ -9,7 +23,26 @@ RUN_LOG_FILE = LOG_DIR / "runs_history.json"
 OUTPUT_DIR.mkdir(exist_ok=True)
 LOG_DIR.mkdir(exist_ok=True)
 
+APP_HOST = get_env("APP_HOST", "0.0.0.0")
+APP_PORT = get_env_int("APP_PORT", 5000)
+LOG_LEVEL = get_env("LOG_LEVEL", "INFO")
+
 JSONPLACEHOLDER_POSTS_URL = os.getenv(
     "JSONPLACEHOLDER_POSTS_URL",
     "https://jsonplaceholder.typicode.com/posts"
 )
+
+DEFAULT_OUTPUT_FORMAT = get_env("DEFAULT_OUTPUT_FORMAT", "json")
+
+ENABLE_SNOWFLAKE_LOAD = get_env("ENABLE_SNOWFLAKE_LOAD", "false").lower()
+
+SNOWFLAKE_ACCOUNT = get_env("SNOWFLAKE_ACCOUNT")
+SNOWFLAKE_USER = get_env("SNOWFLAKE_USER")
+SNOWFLAKE_PASSWORD = get_env("SNOWFLAKE_PASSWORD")
+SNOWFLAKE_WAREHOUSE = get_env("SNOWFLAKE_WAREHOUSE")
+SNOWFLAKE_DATABASE = get_env("SNOWFLAKE_DATABASE")
+SNOWFLAKE_SCHEMA = get_env("SNOWFLAKE_SCHEMA")
+SNOWFLAKE_ROLE = get_env("SNOWFLAKE_ROLE")
+
+AIRFLOW_BASE_URL = get_env("AIRFLOW_BASE_URL")
+AIRFLOW_DAG_ID = get_env("AIRFLOW_DAG_ID")
