@@ -1,7 +1,7 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(override=True)
 
 def get_env(name: str, default: str = "") -> str:
     value = os.getenv(name)
@@ -38,11 +38,12 @@ ENABLE_SNOWFLAKE_LOAD = get_env("ENABLE_SNOWFLAKE_LOAD", "false").lower()
 
 SNOWFLAKE_ACCOUNT = get_env("SNOWFLAKE_ACCOUNT")
 SNOWFLAKE_USER = get_env("SNOWFLAKE_USER")
-SNOWFLAKE_PASSWORD = get_env("SNOWFLAKE_PASSWORD")
+SNOWFLAKE_PRIVATE_KEY_PASSPHRASE = get_env("SNOWFLAKE_PRIVATE_KEY_PASSPHRASE")
 SNOWFLAKE_WAREHOUSE = get_env("SNOWFLAKE_WAREHOUSE")
 SNOWFLAKE_DATABASE = get_env("SNOWFLAKE_DATABASE")
 SNOWFLAKE_SCHEMA = get_env("SNOWFLAKE_SCHEMA")
 SNOWFLAKE_ROLE = get_env("SNOWFLAKE_ROLE")
+SNOWFLAKE_PRIVATE_KEY_FILE = get_env("SNOWFLAKE_PRIVATE_KEY_FILE")
 
 AIRFLOW_BASE_URL = get_env("AIRFLOW_BASE_URL")
 AIRFLOW_DAG_ID = get_env("AIRFLOW_DAG_ID")
