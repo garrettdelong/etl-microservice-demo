@@ -1,7 +1,12 @@
-venv/
+airflow/
 __pycache__/
-*.pyc
-logs/
-output/
+*.py[cod]
+venv/
+.venv/
+env/
 .git/
 .gitignore
+logs/
+output/
+.env
+.env.local

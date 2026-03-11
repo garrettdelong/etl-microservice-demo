@@ -1,7 +1,10 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-load_dotenv(override=True)
+
+BASE_DIR = Path(__file__).resolve().parent
+ENV_FILE = os.getenv("ENV_FILE", ".env")
+load_dotenv(BASE_DIR / ENV_FILE)
 
 def get_env(name: str, default: str = "") -> str:
     value = os.getenv(name)
@@ -15,7 +18,6 @@ def get_env_int(name: str, default: int) -> int:
         return default
     return int(value)
 
-BASE_DIR = Path(__file__).resolve().parent
 OUTPUT_DIR = BASE_DIR / "output"
 LOG_DIR = BASE_DIR / "logs"
 RUN_LOG_FILE = LOG_DIR / "runs_history.json"
