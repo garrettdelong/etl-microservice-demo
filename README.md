@@ -44,18 +44,3 @@ Snowflake acts as the warehouse target. When enabled, ingested data is loaded in
 
 ### Airflow
 Airflow acts as the orchestration layer. It triggers the Flask ingest endpoint rather than duplicating the ETL logic inside DAG tasks.
-
-## Endpoints
-
-### `GET /health`
-
-Returns a simple health response for the service.
-
-Example response:
-
-```json
-{
-  "status": "ok",
-  "service": "flask-etl-service",
-  "timestamp_utc": "2026-03-11T00:00:00+00:00"
-}
