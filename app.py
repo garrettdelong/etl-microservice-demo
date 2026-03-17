@@ -2,7 +2,7 @@ from datetime import datetime, UTC
 from flask import Flask, jsonify
 import logging
 
-from services.ingest import ingest_posts
+from services.ingest import ingest_dataset
 from services.run_log import append_run, read_run_history, get_latest_run
 from config import APP_HOST, APP_PORT, LOG_DIR, LOG_LEVEL, RUN_LOG_FILE
 
@@ -34,7 +34,7 @@ def ingest_posts_route():
     try:
         logger.info("Starting ingest for posts")
 
-        result = ingest_posts()
+        result = ingest_dataset("posts")
         append_run(RUN_LOG_FILE, result)
 
         logger.info(
@@ -50,7 +50,35 @@ def ingest_posts_route():
 
         return jsonify(
             {
-                "dataset": "posts:",
+                "dataset": "posts",
+                "status": "failed",
+                "error": str(e),
+                "timestamp_utc": datetime.now(UTC).isoformat()
+            }
+        ), 500
+    
+@app.post("/ingest/users")
+def ingest_users_route():
+    try:
+        logger.info("Starting ingest for users")
+
+        result = ingest_dataset("users")
+        append_run(RUN_LOG_FILE, result)
+
+        logger.info(
+            "Completed ingest for users with %s records written to %s",
+            result["record_count"],
+            result["file_path"]
+        )
+
+        return jsonify(result), 200
+    
+    except Exception as e:
+        logger.exception("Ingest failed for users")
+
+        return jsonify(
+            {
+                "dataset": "users",
                 "status": "failed",
                 "error": str(e),
                 "timestamp_utc": datetime.now(UTC).isoformat()

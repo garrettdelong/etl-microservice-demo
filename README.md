@@ -44,3 +44,20 @@ Snowflake acts as the warehouse target. When enabled, ingested data is loaded in
 
 ### Airflow
 Airflow acts as the orchestration layer. It triggers the Flask ingest endpoint rather than duplicating the ETL logic inside DAG tasks.
+
+## API Endpoints
+
+### `GET /health`
+Returns a simple health check response for the service. This endpoint is used to confirm that the Flask application is running and able to accept requests.
+
+### `POST /ingest/posts`
+Triggers an ETL run for the JSONPlaceholder posts dataset. The service fetches post records from the public API, writes the raw response to a local JSON output file, records run metadata, and optionally loads the data into the Snowflake `posts` table.
+
+### `POST /ingest/users`
+Triggers an ETL run for the JSONPlaceholder users dataset. The service fetches user records from the public API, writes the raw response to a local JSON output file, records run metadata, and optionally loads the data into the Snowflake `users` table.
+
+### `GET /runs`
+Returns the full run history stored by the service. This endpoint can be used to review prior ETL runs and inspect metadata such as dataset name, status, timestamps, output file path, and Snowflake load details.
+
+### `GET /runs/latest`
+Returns the most recent recorded ETL run. This is useful for quickly checking the latest execution result without reading the full run history.
