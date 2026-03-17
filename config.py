@@ -34,6 +34,29 @@ JSONPLACEHOLDER_POSTS_URL = os.getenv(
     "https://jsonplaceholder.typicode.com/posts"
 )
 
+JSONPLACEHOLDER_USERS_URL = os.getenv(
+    "JSONPLACEHOLDER_USERS_URL",
+    "https://jsonplaceholder.typicode.com/users"
+)
+
+DATASET_CONFIG = {
+    "posts": {
+        "source_url": JSONPLACEHOLDER_POSTS_URL,
+        "output_prefix": "posts",
+        "table_name": "posts",
+        "source_fields": ["id", "userId", "title", "body"],
+        "target_columns": ["post_id", "user_id", "title", "body"]
+
+    },
+    "users": {
+        "source_url": JSONPLACEHOLDER_USERS_URL,
+        "output_prefix": "users",
+        "table_name": "users",
+        "source_fields": ["id", "name", "username", "email", "phone", "website"],
+        "target_columns": ["user_id", "name", "username", "email", "phone", "website"]
+    }
+}
+
 DEFAULT_OUTPUT_FORMAT = get_env("DEFAULT_OUTPUT_FORMAT", "json")
 
 ENABLE_SNOWFLAKE_LOAD = get_env("ENABLE_SNOWFLAKE_LOAD", "false").lower()

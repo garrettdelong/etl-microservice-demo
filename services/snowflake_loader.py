@@ -1,6 +1,7 @@
 import snowflake.connector
 
 from config import (
+    DATASET_CONFIG,
     SNOWFLAKE_ACCOUNT,
     SNOWFLAKE_USER,
     SNOWFLAKE_WAREHOUSE,
@@ -61,30 +62,27 @@ def load_data_to_snowflake(table_name, column_names, rows, truncate_first="false
     finally:
         cursor.close()
         conn.close()
+
+def build_rows_from_source_fields(data, source_fields):
+    return [
+        tuple(record.get(field) for field in source_fields)
+        for record in data
+    ]
     
-def load_posts_to_snowflake(data):
-    table_name = "posts"
+def load_dataset_to_snowflake(dataset_name, data):
+    if dataset_name not in DATASET_CONFIG:
+        raise ValueError(f"Unsupported dataset for Snowflake load: {dataset_name}")
+    
+    dataset_config = DATASET_CONFIG[dataset_name]
 
-    column_names = [
-        "post_id",
-        "user_id",
-        "title",
-        "body"
-    ]
-
-    rows = [
-        (
-            post["id"],
-            post["userId"],
-            post["title"],
-            post["body"]
-        )
-        for post in data
-    ]
+    rows = build_rows_from_source_fields(
+        data=data,
+        source_fields=dataset_config["source_fields"]
+    )
 
     return load_data_to_snowflake(
-        table_name=table_name,
-        column_names=column_names,
+        table_name=dataset_config["table_name"],
+        column_names=dataset_config["target_columns"],
         rows=rows,
         truncate_first="true"
     )
