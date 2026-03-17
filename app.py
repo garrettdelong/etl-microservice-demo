@@ -4,6 +4,7 @@ import logging
 
 from services.ingest import ingest_dataset
 from services.run_log import append_run, read_run_history, get_latest_run
+from services.run_log_snowflake import append_run_to_snowflake
 from config import APP_HOST, APP_PORT, LOG_DIR, LOG_LEVEL, RUN_LOG_FILE
 
 app = Flask(__name__)
@@ -37,6 +38,11 @@ def ingest_posts_route():
         result = ingest_dataset("posts")
         append_run(RUN_LOG_FILE, result)
 
+        try:
+            append_run_to_snowflake(result)
+        except Exception:
+            logger.exception("Failed to append run metadata to Snowlfake")
+
         logger.info(
             "Completed ingest for posts with %s records written to %s",
             result["record_count"],
@@ -64,6 +70,11 @@ def ingest_users_route():
 
         result = ingest_dataset("users")
         append_run(RUN_LOG_FILE, result)
+
+        try:
+            append_run_to_snowflake(result)
+        except Exception:
+            logger.exception("Failed to append run metadata to Snowlfake")
 
         logger.info(
             "Completed ingest for users with %s records written to %s",

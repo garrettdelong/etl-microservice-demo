@@ -1,6 +1,7 @@
 import requests
 import json
 from datetime import datetime, UTC
+import uuid
 
 from config import (
     DATASET_CONFIG,
@@ -35,6 +36,7 @@ def ingest_dataset(dataset_name):
     output_file = write_output_file(output_prefix, data)
 
     result = {
+        "run_id": str(uuid.uuid4()),
         "dataset": dataset_name,
         "source_url": source_url,
         "status": "success",
