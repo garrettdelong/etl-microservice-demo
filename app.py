@@ -43,6 +43,13 @@ def ingest_posts_route():
         except Exception:
             logger.exception("Failed to append run metadata to Snowflake")
 
+        if result["status"] == "failed":
+            logger.error(
+                "Ingest failed for posts with run_id=%s",
+                result.get("run_id")
+            )
+            return jsonify(result), 500
+
         logger.info(
             "Completed ingest for posts with %s records written to %s",
             result["record_count"],
@@ -75,6 +82,13 @@ def ingest_users_route():
             append_run_to_snowflake(result)
         except Exception:
             logger.exception("Failed to append run metadata to Snowlfake")
+
+        if result["status"] == "failed":
+            logger.error(
+                "Ingest failed for posts with run_id=%s",
+                result.get("run_id")
+            )
+            return jsonify(result), 500
 
         logger.info(
             "Completed ingest for users with %s records written to %s",
