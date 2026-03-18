@@ -1,6 +1,6 @@
 from config import DATASET_CONFIG
 
-def run_pre_load_data_quality_checks(dataset_name, data, snowflake_row_count=None, snowflake_status=""):
+def run_pre_load_data_quality_checks(dataset_name, data):
     if dataset_name not in DATASET_CONFIG:
         raise ValueError(f"Unspopported dataset for quality checks: {dataset_name}")
     
@@ -87,25 +87,6 @@ def run_pre_load_data_quality_checks(dataset_name, data, snowflake_row_count=Non
             }
         )
      
-
-    if snowflake_status == "success":
-        if snowflake_row_count == record_count:
-            check_results.append(
-                {
-                    "check_name": "snowflake_row_count_matches_record_count",
-                     "status": "passed",
-                     "details": f"snowflake_row_count matched record_count at {record_count}"
-                }
-            )
-        else:
-            check_results.append(
-                {
-                    "check_name": "snowflake_row_count_matches_record_count",
-                    "status": "failed",
-                    "details": f"snowflake_row_count was {snowflake_row_count} but record_count was {record_count}"
-                }
-            )
-    
     passed_count = sum(1 for check in check_results if check["status"] == "passed")
     failed_count = sum(1 for check in check_results if check["status"] == "failed")
 
@@ -118,7 +99,7 @@ def run_pre_load_data_quality_checks(dataset_name, data, snowflake_row_count=Non
         "quality_check_results": check_results
     }
 
-def run_post_load_quaity_checks(record_count, snowflake_row_count, existing_results):
+def run_post_load_data_quality_checks(record_count, snowflake_row_count, existing_results):
     check_results = list(existing_results.get("quality_check_results", []))
 
     if snowflake_row_count == record_count:

@@ -9,7 +9,7 @@ from config import (
     ENABLE_SNOWFLAKE_LOAD
 )
 from services.snowflake_loader import load_dataset_to_snowflake
-from services.data_quality import run_data_quality_checks
+from services.data_quality import run_pre_load_data_quality_checks, run_post_load_data_quality_checks
 
 def write_output_file(output_prefix, data):
     timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
@@ -46,9 +46,37 @@ def ingest_dataset(dataset_name):
         "started_at": started_at
     }
 
+    pre_quality_result = run_pre_load_data_quality_checks(
+        dataset_name=dataset_name,
+        data=data
+    )
+
+    result.update(pre_quality_result)
+
+    if result["quality_status"] == "failed":
+        result.update(
+            {
+                "status": "failed",
+                "snowflake_status": "skipped",
+                "snowlfake_table": dataset_config["table_name"],
+                "snowflake_row_count": 0,
+                "error_message": "Pre-load data qualit checks failed"
+            }
+        )
+        result["completed_at"] = datetime.now(UTC).isoformat()
+        return result
+
+
     if ENABLE_SNOWFLAKE_LOAD == "true":
         snowflake_result = load_dataset_to_snowflake(dataset_name, data)
         result.update(snowflake_result)
+
+        post_quality_result = run_post_load_data_quality_checks(
+            record_count=result["record_count"],
+            snowflake_row_count=result.get("snowflake_row_count", 0),
+            existing_results=result
+        )
+        result.update(post_quality_result)
     else: 
         result.update(
             {
@@ -57,15 +85,6 @@ def ingest_dataset(dataset_name):
                 "snowflake_row_count": 0
             }
         )
-
-    quality_result = run_data_quality_checks(
-        dataset_name=dataset_name,
-        data=data,
-        snowflake_row_count=result.get("snowflake_row_count", 0),
-        snowflake_status=result.get("snowflake_status","")
-    )
-
-    result.update(quality_result)
 
     result["completed_at"] = datetime.now(UTC).isoformat()
 
