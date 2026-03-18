@@ -41,7 +41,7 @@ def ingest_posts_route():
         try:
             append_run_to_snowflake(result)
         except Exception:
-            logger.exception("Failed to append run metadata to Snowlfake")
+            logger.exception("Failed to append run metadata to Snowflake")
 
         logger.info(
             "Completed ingest for posts with %s records written to %s",
@@ -58,7 +58,7 @@ def ingest_posts_route():
             {
                 "dataset": "posts",
                 "status": "failed",
-                "error": str(e),
+                "error_message": str(e),
                 "timestamp_utc": datetime.now(UTC).isoformat()
             }
         ), 500
