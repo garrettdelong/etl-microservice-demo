@@ -45,7 +45,8 @@ DATASET_CONFIG = {
         "output_prefix": "posts",
         "table_name": "posts",
         "source_fields": ["id", "userId", "title", "body"],
-        "target_columns": ["post_id", "user_id", "title", "body"]
+        "target_columns": ["post_id", "user_id", "title", "body"],
+        "primary_key_field": "id"
 
     },
     "users": {
@@ -53,7 +54,8 @@ DATASET_CONFIG = {
         "output_prefix": "users",
         "table_name": "users",
         "source_fields": ["id", "name", "username", "email", "phone", "website"],
-        "target_columns": ["user_id", "name", "username", "email", "phone", "website"]
+        "target_columns": ["user_id", "name", "username", "email", "phone", "website"],
+        "primary_key_field": "id"
     }
 }
 
