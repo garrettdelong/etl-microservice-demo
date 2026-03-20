@@ -28,10 +28,10 @@ jobs:
       - name: Syntax check
         run: |
           python -m py_compile \
-          app.py \ 
-          config.py \ 
-          services/ingest.py \ 
-          services/run_log.py \ 
+          app.py \
+          config.py \
+          services/ingest.py \
+          services/run_log.py \
           services/run_log_snowflake.py \
-          services/snowflake_loader.py \ 
+          services/snowflake_loader.py \
           services/data_quality.py
