@@ -25,6 +25,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+
       - name: Syntax check
         run: |
           python -m py_compile \
@@ -35,3 +36,8 @@ jobs:
           services/run_log_snowflake.py \
           services/snowflake_loader.py \
           services/data_quality.py
+      
+      - name: Run tests
+        run: |
+          pytest
+
