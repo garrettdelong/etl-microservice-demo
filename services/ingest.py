@@ -58,7 +58,7 @@ def ingest_dataset(dataset_name):
             {
                 "status": "failed",
                 "snowflake_status": "skipped",
-                "snowlfake_table": dataset_config["table_name"],
+                "snowflake_table": dataset_config["table_name"],
                 "snowflake_row_count": 0,
                 "error_message": "Pre-load data quality checks failed"
             }
