@@ -61,3 +61,58 @@ Returns the full run history stored by the service. This endpoint can be used to
 
 ### `GET /runs/latest`
 Returns the most recent recorded ETL run. This is useful for quickly checking the latest execution result without reading the full run history.
+
+---
+
+## Data Quality Checks
+
+The service now includes both pre-load and post-load data quality checks.
+
+### Pre-Load Checks
+
+Pre-load checks run before data is loaded into Snowflake. If a critical pre-load check fails, the service skips the Snowflake load and returns a failed response.
+
+Current pre-load checks include:
+
+- record count greater than zero
+- required fields present
+- primary key not null
+- primary key unique
+
+### Post-Load Checks
+
+Post-load checks run after a successful Snowflake load.
+
+Current post-load checks include:
+
+- Snowflake row count matches extracted record count
+
+### Quality Result Metadata
+
+Each run now records quality metadata, including:
+
+- `quality_status`
+- `quality_checks_passed`
+- `quality_checks_failed`
+- `quality_check_results`
+
+Example shape:
+
+```json
+{
+  "quality_status": "failed",
+  "quality_checks_passed": 3,
+  "quality_checks_failed": 1,
+  "quality_check_results": [
+    {
+      "check_name": "record_count_gt_zero",
+      "status": "passed",
+      "details": "record_count was 10"
+    },
+    {
+      "check_name": "required_fields_present",
+      "status": "failed",
+      "details": "missing fields: ['test']"
+    }
+  ]
+}
