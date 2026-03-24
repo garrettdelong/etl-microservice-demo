@@ -21,19 +21,6 @@ The main workflow is:
 
 Airflow is used as a lightweight orchestration layer that calls the Flask ETL endpoints rather than duplicating ETL logic inside the DAG. GitHub Actions and pytest were added to give the project a basic CI and testing workflow.
 
-## Features
-
-- Flask API service
-- Public API ingestion using JSONPlaceholder
-- Flat-file output to local JSON files
-- Optional Snowflake loading
-- Environment-based configuration
-- Snowflake key-pair authentication
-- Basic service logging
-- Run history tracking
-- Docker support
-- Airflow orchestration
-
 ## API Endpoints
 
 ### `GET /health`
