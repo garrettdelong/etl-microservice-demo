@@ -6,18 +6,20 @@ This project was built as a focused hands-on exercise to practice Flask in a dat
 
 ## Project Overview
 
-The service exposes a small set of API endpoints that trigger ETL logic behind a Flask app.
+This project is a small Flask-based ETL microservice built to simulate a service-oriented data pipeline. The app exposes API endpoints that trigger ingestion workflows for public API datasets, writes raw outputs to local JSON files, runs data quality checks, and conditionally loads trusted data into Snowflake.
 
 The main workflow is:
 
-1. Receive a request through a Flask endpoint
-2. Call the JSONPlaceholder posts API
-3. Write the response to a local output file
-4. Optionally load the results into Snowflake
-5. Return run metadata in the API response
-6. Track run history and basic service logs
+- receive a request through a Flask endpoint
+- fetch dataset records from a JSONPlaceholder API endpoint
+- write the raw response to a local output file
+- run pre-load data quality checks
+- load the dataset into Snowflake if critical checks pass
+- run post-load validation on the Snowflake load result
+- return structured run metadata in the API response
+- record run history locally and in a Snowflake run log table
 
-Airflow is used as a lightweight orchestration layer that triggers the Flask ETL endpoint.
+Airflow is used as a lightweight orchestration layer that calls the Flask ETL endpoints rather than duplicating ETL logic inside the DAG. GitHub Actions and pytest were added to give the project a basic CI and testing workflow.
 
 ## Features
 
