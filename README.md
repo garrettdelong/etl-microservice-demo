@@ -116,3 +116,26 @@ Example shape:
     }
   ]
 }
+
+## Testing
+
+The project includes a basic pytest suite to validate core service behavior without relying on live external systems.
+
+### What is currently tested
+
+The current tests focus on the highest-value parts of the app first:
+
+- Flask health endpoint
+- local run log functions
+- data quality logic
+
+This keeps the test suite fast and practical while still covering the main control flow and validation behavior of the service.
+
+### Test structure
+
+```text
+tests/
+  conftest.py
+  test_health.py
+  test_run_log.py
+  test_data_quality.py
