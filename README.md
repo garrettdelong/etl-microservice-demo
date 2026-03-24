@@ -116,7 +116,7 @@ Example shape:
     }
   ]
 }
-'''json
+```json
 
 ## Testing
 
