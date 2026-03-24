@@ -1,8 +1,8 @@
 # Flask ETL Microservice Demo
 
-A small Flask-based ETL microservice that ingests public API data, writes flat-file outputs, optionally loads the data into Snowflake, and can be orchestrated with Airflow.
+A small Flask-based ETL microservice that ingests public API data, writes flat-file outputs, runs data quality checks, conditionally loads trusted data into Snowflake, and can be orchestrated with Airflow.
 
-This project was built as a focused hands-on exercise to practice Flask in a data engineering context. The goal was to keep the scope small while still showing realistic patterns that come up in production-style workflows, including API ingestion, environment-based configuration, Dockerized services, Snowflake loading, and Airflow orchestration.
+This project was built as a focused hands-on exercise to practice Flask in a data engineering context. The goal was to keep the scope small while still showing realistic patterns that come up in production-style workflows, including API ingestion, environment-based configuration, Dockerized services, Snowflake loading, operational run logging, data quality validation, Airflow orchestration, GitHub Actions CI, and pytest-based testing.
 
 ## Project Overview
 
@@ -33,19 +33,6 @@ Airflow is used as a lightweight orchestration layer that calls the Flask ETL en
 - Run history tracking
 - Docker support
 - Airflow orchestration
-
-## Architecture
-
-This project separates responsibilities across three layers:
-
-### Flask
-Flask acts as the service layer. It exposes the ETL workflow through API endpoints and owns the ingestion logic.
-
-### Snowflake
-Snowflake acts as the warehouse target. When enabled, ingested data is loaded into a dedicated Snowflake database and schema.
-
-### Airflow
-Airflow acts as the orchestration layer. It triggers the Flask ingest endpoint rather than duplicating the ETL logic inside DAG tasks.
 
 ## API Endpoints
 
