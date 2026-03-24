@@ -10,14 +10,14 @@ This project is a small Flask-based ETL microservice built to simulate a service
 
 The main workflow is:
 
-- receive a request through a Flask endpoint
-- fetch dataset records from a JSONPlaceholder API endpoint
-- write the raw response to a local output file
-- run pre-load data quality checks
-- load the dataset into Snowflake if critical checks pass
-- run post-load validation on the Snowflake load result
-- return structured run metadata in the API response
-- record run history locally and in a Snowflake run log table
+1. receive a request through a Flask endpoint
+2. fetch dataset records from a JSONPlaceholder API endpoint
+3.  write the raw response to a local output file
+4.  run pre-load data quality checks
+5.  load the dataset into Snowflake if critical checks pass
+6.  run post-load validation on the Snowflake load result
+7.  return structured run metadata in the API response
+8.  record run history locally and in a Snowflake run log table
 
 Airflow is used as a lightweight orchestration layer that calls the Flask ETL endpoints rather than duplicating ETL logic inside the DAG. GitHub Actions and pytest were added to give the project a basic CI and testing workflow.
 
@@ -118,7 +118,7 @@ Example shape:
     }
   ]
 }
-```json
+```
 
 ## Testing
 
@@ -142,3 +142,4 @@ tests/
   test_health.py
   test_run_log.py
   test_data_quality.py
+```
